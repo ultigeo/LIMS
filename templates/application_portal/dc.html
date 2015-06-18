@@ -1,0 +1,32 @@
+{% extends 'application_portal/base.html' %}
+
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% load bootstrap_toolkit %}
+{% block content %}
+<div class="container-fluid">
+	    <div class="row-fluid">
+	    	<div class="span3">
+                <div class="well sidebar-nav"> 
+                 <h3>Navigation links</h3>
+                   <ul>
+                        <li>View Maps <a href="/ladm/search/">Here</a> </li>
+
+                    </ul>     
+                </div>              
+            </div>
+	        <div class="span9">   
+				<h1>Verify applications</h1>
+				<p> FIll in the form spaces available and click on 'Send' to submit. </p>
+				<form method="post" action="{% url 'dc' %}" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ form.media }}
+				{{ field }}
+				{{ form|as_bootstrap}}
+				<button type="submit">Send</button>
+				</form>
+			</div>
+		</div>
+</div>
+
+{% endblock %}

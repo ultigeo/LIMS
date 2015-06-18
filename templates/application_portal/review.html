@@ -1,0 +1,55 @@
+{% extends 'application_portal/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Index{% endblock %}
+
+{% load bootstrap3 %}
+
+{% load bootstrap_toolkit %}
+<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% block content %}
+<div class="container-fluid">  
+        <div class="background">      
+        <div class="hero-unit" style="background-image: url({% static 'img/map-image.png' %})">
+            <h2>Welcome to the LADM website</h2>
+                    <p>This project aims at automating Land processes in Kenya.This website contains various sections that can be accessed from the navigation toolbar on top on this page.</p>
+                    <p>Click on the link of interest to access the resource.</p>
+            <p><a href="http://www.ladmkenya.wordpress.com" class="fa fa-fw fa-gift">Learn more &raquo;</a></p>
+        </div>
+        </div>
+        <div class="span3">
+            <div class="well sidebar-nav"> 
+                <li class="nav-header">Important links</li>
+                <ul class="nav nav-list">
+                    <li><a href="/ladm/search/">View Parcel map</a> </li>
+                    <li><a href="/ladm/apply/">Submit applications</a> </li>
+                </ul>     
+            </div>
+            <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Information Section</li>
+              <li><a href="/ladm/status/">My application Status</a></li>
+              <li><a href="/ladm/contact/">Contact Us</a></li>
+              <li><a href="/ladm/about/">About Us</a></li>
+              <li class="nav-header">Organisation</li>
+              <li><a href="/ladm/services/">Services</a></li>
+              <li><a href="/ladm/datas/">Data</a></li>
+              <li><a href="/ladm/review/">Review</a></li>
+              <li class="nav-header">Socials</li>
+              <li class="nav-header">Other Links</li>
+              <li><a href="https://ladmkenya.wordpress.com/the-team/">The Team</a></li>
+              <li><a href="http://www.dkut.ac.ke/academics/institute/institute-of-geomatics-gis-a-remote-sensing-iggres">IGGReS</a></li>
+            </ul>
+            
+          </div>      
+        </div>
+        <div class="span9">
+                <h4><a class="fa fa-fw fa-gift" href="/ladm/review/">Review</a></h4>
+                <p>Standards are needed in land administration, both for initial data acquisition and for data maintenance. And previous experiences have shown that it is not an easy task to design and set up a land administration. Many countries still lack the modelling expertise to set up land administration systems.  </p>
+                <p>The system will be completed and rolled out into some organizations for testing.The sectors for testing will be decided when completed.</p>
+                <hr>
+        </div>
+</div>
+{% endblock %}
+

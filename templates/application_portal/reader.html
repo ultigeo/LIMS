@@ -1,0 +1,22 @@
+{% extends 'application_portal/base.html' %}
+
+{% load staticfiles %}
+
+{% load bootstrap3 %}
+
+{% load bootstrap_toolkit %}
+
+{% block body_block %}
+
+<div class="container">
+  <div class="row">
+    <h2>Applications</h2>
+    <ul>
+        {% for applications in object_list %}
+            <li class="application">{{ applications.applicant_name }}</li>
+            <li>{{ applications.telephone }}</li>
+        {% endfor %}
+    </ul>
+   </div>
+</div>
+{% endblock %}

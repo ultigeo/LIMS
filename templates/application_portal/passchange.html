@@ -1,0 +1,22 @@
+
+{% extends "application_portal/base.html" %}
+{% load i18n %}
+{% block content %}
+<form class="form-horizontal" role="form" action="/password/reset/" method="post" autocomplete="off">{% csrf_token %}
+  <div class="form-group">
+    <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+    <div class="col-lg-10">
+        <div class="input-group">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+      <input class="form-control" id="inputEmail" maxlength="25" name="email" type="email" placeholder="Email" pattern=".{7,}" required>
+  </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <button type="submit" class="btn btn-primary">Reset Password</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
+

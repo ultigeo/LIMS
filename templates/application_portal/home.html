@@ -1,0 +1,288 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+     
+{% block title %} {% trans "Welcome! BizTrac" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}home{% endblock %}
+
+{% block middle %}
+
+<!-- Header -->
+<section id="main-slider" class="no-margin">
+        <div class="carousel slide">
+            <ol class="carousel-indicators">
+                <li data-target="#main-slider" data-slide-to="0" class="active"></li>
+                <li data-target="#main-slider" data-slide-to="1"></li>
+                <li data-target="#main-slider" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+
+                <div class="item active" style="background-image: url({{STATIC_URL}}/theme/images/world_two.jpg)">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1">Quick Business Permits</h1>
+                                    <h2 class="animation animated-item-2">Register and obtain the permits...</h2>
+                                    <a class="btn-slide animation animated-item-3" href="{% url "registration_register" %}">REGISTER</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.item-->
+
+                <div class="item" style="background-image: url({{STATIC_URL}}/theme/images/world_four.jpg)">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1">Better Services</h1>
+                                    <h2 class="animation animated-item-2">Email alerts on your business compliance...</h2>
+                                    <a class="btn-slide animation animated-item-3" href="#">READ MORE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.item-->
+
+                <div class="item" style="background-image: url({{STATIC_URL}}/theme/images/brighter_world.jpg)">
+                    <div class="container">
+                        <div class="row slide-margin">
+                            <div class="col-sm-6">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1">Tools & Features</h1>
+                                    <h2 class="animation animated-item-2">Check out the tools and features for easy management of GIS Data ...</h2>
+                                    <a class="btn-slide animation animated-item-3" href="#">READ MORE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.item-->
+            </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+        <a class="next hidden-xs" href="#main-slider" data-slide="next">
+            <i class="fa fa-chevron-right"></i>
+        </a>
+    </section><!--/#main-slider-->
+{% block hero %}
+      
+       
+{% endblock %}
+
+  {% block mainbody %}
+      <div class="services" id="services">
+        <div class="wrap">
+          <h3>EXPLORE TOOLS & FEATURES </h3>          
+         	
+         	<div class="col-md-4">
+              <div class=" feature-wrap">
+              <p class="text-center"><i class="fa fa-users fa-5x"></i></p>
+              <h4 class="text-center"><a href="#">{{ facets.user|default:"No" }} Users{{ facets.user|pluralize }}</a></h4>
+              <p class="text-center">{% trans "GeoNode allows registered users to easily upload geospatial data in several formats including shapefile and GeoTiff." %}</p>
+              <p class="text-center"><a class="btn btn-default" href="#" role="button">{% trans "Share data" %} &raquo;</a></p>
+              </div>
+            </div>          
+            <div class="col-md-4">
+              <div class=" feature-wrap">
+              <p class="text-center"><i class="fa fa-square-o fa-5x rotate-45"></i></p>
+              <h4 class="text-center"><a href="#">{{ facets.layer|default:"No" }} Businesses{{ facets.layer|pluralize }}</a></h4>
+              <p class="text-center">{% trans "Click to search for geospatial data published by other users, organizations and public sources. Download data in standard formats." %}</p> 
+              <p class="text-center"><a class="btn btn-default" href="#" role="button">{% trans "Explore Layers" %} &raquo;</a></p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class=" feature-wrap">
+              <p class="text-center"><i class="fa fa-map-marker fa-5x"></i></p>
+              <h4 class="text-center"><a href="#">{{ facets.map|default:"No" }} Locations{{ facets.map|pluralize }}</a></h4>
+              <p class="text-center">{% trans "Data is available for browsing, aggregating and styling to generate maps which can be shared publicly or restricted to specific users only." %}</p>
+              <p class="text-center"><a class="btn btn-default" href="#" role="button">{% trans "Create maps" %} &raquo;</a></p>
+              </div>
+            </div>
+            
+          
+        {% verbatim %}
+        <div ng-app="featured">
+          <div ng-repeat="item in featured">
+            <!--{{ item.title }}-->
+          </div>
+        </div>
+        {% endverbatim %} 
+
+    <div class="portfolio" id="portfolio">
+        <div class="wrap">
+          <h3>All About BizTrac</h3>
+          <p>Submit your projects & research, and be rated by the Community</p>
+          <div class="col_1_of_3 span_1_of_3">
+            <div class="view view-fourth">
+                        <img src="{{STATIC_URL}}/theme/images/port1.jpg">
+                      <div class="mask">
+                          <h2>Projects</h2>
+                          <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                          <a href="#" class="info">Read More</a>
+                      </div>
+                  </div>
+          <h4><a href="#">Academic & Real-World Projects</a></h4>
+          <p>Students</p>
+        </div>
+        <div class="col_1_of_3 span_1_of_3">
+           <div class="view view-fourth">
+                        <img src="{{STATIC_URL}}/theme/images/port2.jpg">
+                      <div class="mask">
+                          <h2>Cutting-edge Research</h2>
+                          <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                          <a href="#" class="info">Read More</a>
+                      </div>                      
+                  </div>
+          <h4><a href="#">NextGen Applications & Map Designs</a></h4>
+          <p>Research Papers</p>
+        </div>
+        <div class="col_1_of_3 span_1_of_3">
+           <div class="view view-fourth">
+                        <img src="{{STATIC_URL}}/theme/images/port3.png">
+                      <div class="mask">
+                          <h2>Field Work</h2>
+                          <p>A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.</p>
+                          <a href="#" class="info">Read More</a>
+                      </div>
+            </div>
+          <h4><a href="#">Explore Data</a></h4>
+          <p>Data Collection</p>
+        </div>        
+      <div class="clear"></div>                             
+     </div>       
+  </div>
+
+  {% endblock %}
+  <!---strat-image-cursuals---->
+                <div class="t-clients">
+                   <div class="wrap">                       
+              <div class="nbs-flexisel-container"><div class="nbs-flexisel-inner"><ul class="flexiselDemo3 nbs-flexisel-ul" style="left: -253.6px; display: block;">                                             
+              <li onclick="location.href='#';" class="nbs-flexisel-item" style="width: 253.6px;"><img src="{{STATIC_URL}}/theme/images/egerton1.jpeg"></li><li onclick="location.href='#';" class="nbs-flexisel-item" style="width: 253.6px;"><img src="{{STATIC_URL}}/theme/images/c4.png"></li><li onclick="location.href='#';" class="nbs-flexisel-item" style="width: 253.6px;"><img src="{{STATIC_URL}}/theme/images/c1.png"></li><li onclick="location.href='#';" class="nbs-flexisel-item" style="width: 253.6px;"><img src="{{STATIC_URL}}/theme/images/c2.png"></li><li onclick="location.href='#';" class="nbs-flexisel-item" style="width: 253.6px;"><img src="{{STATIC_URL}}/theme/images/c3.png"></li><li onclick="location.href='#';" class="nbs-flexisel-item" style="width: 253.6px;"><img src="{{STATIC_URL}}/theme/images/c4.png"></li><li onclick="location.href='#';" class="nbs-flexisel-item" style="width: 253.6px;"><img src="{{STATIC_URL}}/theme/images/c1.png"></li><li onclick="location.href='#';" class="nbs-flexisel-item" style="width: 253.6px;"><img src="{{STATIC_URL}}/theme/images/c2.png"></li></ul><div class="nbs-flexisel-nav-left" style="top: 21.5px;"></div><div class="nbs-flexisel-nav-right" style="top: 21.5px;"></div></div></div> 
+              <div class="clear"> </div> 
+
+
+              <!---strat-image-cursuals---->
+                <script type="text/javascript" src="js/jquery.flexisel.js"></script>
+                <!---End-image-cursuals---->
+                <script type="text/javascript">
+                $(window).load(function() {
+                    $(".flexiselDemo3").flexisel({
+                        visibleItems: 5,
+                        animationSpeed: 1000,
+                        autoPlay: true,
+                        autoPlaySpeed: 3000,            
+                        pauseOnHover: true,
+                        enableResponsiveBreakpoints: true,
+                        responsiveBreakpoints: { 
+                            portrait: { 
+                                changePoint:480,
+                                visibleItems: 1
+                            }, 
+                            landscape: { 
+                                changePoint:640,
+                                visibleItems: 2
+                            },
+                            tablet: { 
+                                changePoint:768,
+                                visibleItems: 3
+                            }
+                        }
+                    });
+                });
+                </script>
+            <!---->
+          <!---->
+          </div>        
+      </div>
+            
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer">
+      <div class="container">
+      <div class="row">
+            <div class="col-md-5 widget">
+              {% trans "Powered by" %} <a href="http://biztrac.co.ke">{% trans "BizTrac" %}</a>|
+              <a href="#">{% trans "Developers" %}</a> |
+              <a href="#">{% trans "About" %}</a>          
+            </div>
+    
+            <div class="col-md-5 widget">
+                        <div class="widget-body">
+                            <p class="follow-me-icons">
+                                <a href="#"><i class="fa fa-facebook-square fa-4x color-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter-square fa-4x color-twitter"></i></a>
+                                <a href="#"><i class="fa fa-google-plus-square fa-4x color-google-plus"></i></a>
+                                <a href="#"><i class="fa fa-linkedin-square fa-4x color-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-tumblr-square fa-4x color-tumblr"></i></a>                                
+                            </p>    
+                        </div>
+              </div>
+        
+             
+      </div> <!-- /.container -->
+    </footer>
+    
+{% endblock footer %}  
+
+{% block extra_script %}
+{% if DEBUG_STATIC %}
+    <!-- THEME SCRIPTS -->
+      <script type="text/javascript" src="{{STATIC_URL}}/theme/js/jquery.min.js"></script>
+      <script type="text/javascript" src="{{STATIC_URL}}/theme/js/modernizr.custom.28468.js"></script>
+      <script type="text/javascript" src="{{STATIC_URL}}/theme/js/jquery.cslider.js"></script>
+    
+      <script>
+       jQuery(function($) {'use strict',
+
+          //#main-slider
+          $(function(){
+              $('#main-slider.carousel').carousel({
+                  interval: 2400
+              });
+          });
+
+      });    
+      </script>
+    <!---//strat-slider---->
+     <!-- scroll -->
+     <script type="text/javascript">
+      $(document).ready(function() {
+      
+        var defaults = {
+            containerID: 'toTop', // fading element id
+          containerHoverID: 'toTopHover', // fading element hover id
+          scrollSpeed: 1200,
+          easingType: 'linear' 
+        };
+        
+        
+        $().UItoTop({ easingType: 'easeOutQuart' });
+        
+      });
+    </script>
+     <!-- //scroll -->
+
+    <!-- END THEME SCRIPTS -->
+<script src="{{ STATIC_URL }}lib/js/angular.js"></script>
+    
+{% endif %}
+  <script type="text/javascript">
+    FEATURED_URL = '#'
+    'use strict';
+    (function(){  
+      var module = angular.module('featured', []);
+      module.run(function($http, $rootScope){
+        $http.get(FEATURED_URL).success(function(data){
+          $rootScope.featured = data.objects;
+        });
+      });
+    })(); 
+  </script>
+  
+{% endblock extra_script %}

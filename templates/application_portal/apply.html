@@ -1,0 +1,32 @@
+{% extends 'application_portal/base.html' %}
+{% load staticfiles %}
+{% block title %}Apply{% endblock %}
+{% load bootstrap3 %}
+{% load bootstrap_toolkit %}
+{% block content %} 
+<div class="container-fluid">
+	    <div class="row-fluid">
+	    	<div class="span3">
+                <div class="well sidebar-nav"> 
+                <li class="nav-header">Important links</li>
+                <ul class="nav nav-list">
+                    <li><a href="/ladm/search/">View Parcel map</a> </li>
+                    <li><a href="/ladm/apply/">Submit applications</a> </li>
+                </ul>     
+            </div>            
+            </div>
+	        <div class="span9">
+				<h1>Fill the appliccation form below;</h1><br>
+				<p> FIll in the form spaces available and click on 'Send' to submit. </p>
+				<form method="post" action="{% url 'apply' %}" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ form.media }}
+				{{ field }}
+				{{ form|as_bootstrap }}
+				<button class="btn btn-primary" type="submit">Send</button>
+				</form>
+			</div>
+		</div>
+</div>
+
+{% endblock %}

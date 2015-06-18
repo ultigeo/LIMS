@@ -1,0 +1,89 @@
+{% extends 'application_portal/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Index{% endblock %}
+
+{% load bootstrap3 %}
+
+{% load bootstrap_toolkit %}
+<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% block content %}
+<div class="container-fluid">  
+        <div class="background">      
+        <div class="hero-unit" style="background-image: url({% static 'img/map-image.png' %})">
+            <h2>Welcome to the LADM website</h2>
+                    <p>This project aims at automating Land processes in Kenya.This website contains various sections that can be accessed from the navigation toolbar on top on this page.</p>
+                    <p>Click on the link of interest to access the resource.</p>
+            <p><a href="http://www.ladmkenya.wordpress.com" class="fa fa-fw fa-gift">Learn more &raquo;</a></p>
+        </div>
+        </div>
+        <div class="span3">
+            <div class="well sidebar-nav"> 
+                <li class="nav-header">Important links</li>
+                <ul class="nav nav-list">
+                    <li><a href="/ladm/search/">View Parcel map</a> </li>
+                    <li><a href="/ladm/apply/">Submit applications</a> </li>
+                </ul>     
+            </div>
+            <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Information Section</li>
+              <li><a href="/ladm/status/">My application Status</a></li>
+              <li><a href="/ladm/contact/">Contact Us</a></li>
+              <li><a href="/ladm/about/">About Us</a></li>
+              <li class="nav-header">Organisation</li>
+              <li><a href="/ladm/services/">Services</a></li>
+              <li><a href="/ladm/datas/">Data</a></li>
+              <li><a href="/ladm/review/">Review</a></li>
+              <li class="nav-header">Other Links</li>
+              <li><a href="https://ladmkenya.wordpress.com/the-team/">The Team</a></li>
+              <li><a href="http://www.dkut.ac.ke/academics/institute/institute-of-geomatics-gis-a-remote-sensing-iggres">IGGReS</a></li>
+            </ul>
+            
+          </div>      
+        </div>
+        <div class="span9">
+        <div class="row">
+            <div class="col-md-4">            
+            <div class="span9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-fw fa-gift"></i>Introduction</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>A group of GIS proffessionals and land administration professionals initiated the development of the pilot land administration model system that facilitates the quick and efficient set-up of land processes such as search, registrattion and change of use/lease.Just like social issues benefit from proper land administration,land administration systems themselves benefit from proper data standards.</p>
+                        Real impact is already visible in open source software development for land administration.
+                        Many countries still lack the modelling expertise to set up land administration systems.This systems goes ahead to provide a faster and quick platform for applications of processes and also data integration between entities in the land administration sector.
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="span4">
+                <h4><a class="fa fa-fw fa-gift" href="/ladm/services/">Services</a></h4>
+                <p>The continuum of land rights is supported.There is also a continuum of accuracy, of land recordation’s, of types of spatial units,of types of parties involved, and of data acquisition approaches.
+                <p>All this is supported in LADM – allowing for a flexible,step by step approach in the development of a Land Administration based on the needs,priorities and requirements of users and society. </p>
+                <p>Many countries still lack the modelling expertise to set up land administration systems.
+                <hr>
+              <p><a class="fa fa-fw fa-gift" href="/ladm/services/">Read More &raquo;</a></p>
+            </div>
+            <div class="span4">
+                <h4><a class="fa fa-fw fa-gift" href="/ladm/datas/">Data</a></h4>
+                <p>Land administration provides documentation on people to land relationships. It is an instrument for the implementation of land policies — part of the governmental policy on environmental sustainability, economic development, disaster management, social justice and equity and political stability. Land administration provides legal security (protection of all land rights), access to credit (collateral for mortgage or micro credit), spatial planning, land tax and resource management (mining, forestry, and nature).</p>
+                <hr>
+                <p><a class="fa fa-fw fa-gift" href="/ladm/datas/">Read More &raquo;</a></p>
+            </div>
+            <br>
+        
+    <div class="span9">
+                <h4><a class="fa fa-fw fa-gift" href="/ladm/review/">Review</a></h4>
+                <p>Standards are needed in land administration, both for initial data acquisition and for data maintenance. And previous experiences have shown that it is not an easy task to design and set up a land administration. Many countries still lack the modelling expertise to set up land administration systems.  </p>
+                <hr>
+                <p><a class="fa fa-fw fa-gift" href="/ladm/review/">Read More &raquo;</a></p>
+            </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+

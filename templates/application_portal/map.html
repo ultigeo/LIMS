@@ -1,0 +1,209 @@
+{% load leaflet_tags %}
+{% load i18n %}
+{% load staticfiles %}
+{% leaflet_js %}
+{% leaflet_css %}
+{% load geojson_tags %}
+<html>
+  <head>
+  <title>LADM Maps</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="http://makinacorpus.github.io/Leaflet.FileLayer/Font-Awesome/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+  <link rel="stylesheet" href="{% static 'css/L.Control.Sidebar.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <style>
+
+  </style>
+  </head>
+  <body>
+  	<div id="sidebar" class="sidebar">
+  		<ul class="sidebar-tabs" role="tablist">
+			<li class='active'><a href="#prezentare" role="tab"><i class="fa fa-navicon"></i></a></li>
+			<li id="selectat"><a href="#trasee" role="tab"><i class="fa fa-bicycle"></i></a></li>
+			<li id="traseulsaptamanii"><a href="#saptamanii" role="tab"><i class="fa fa-area-chart"></i></a></li>
+			<li><a href="#credits" role="tab"><i class="fa fa-users"></i></a></li>
+		</ul>
+		<div class="sidebar-content active">
+			<div class="sidebar-pane active" id="prezentare">
+				<h2>LADM Project</h2>
+				<hr>
+				<p>The land management policy in a country is critical component to climate change adaptation because it helps in establishing and mainstreaming the necessary conditions for policies and actions for climate change mitigation. Currently, Kenya’s land policy lacks linkage with climate change adaptation and mitigation. There is pressing need to incorporate concerns about climate change and natural disaster to land policy and governance in Kenya. </p>
+				<p>DeKut aims to implement a prototype land administration system that draws upon evolving practices in sustainable land management and land governance along with information and communication technology and geographic information systems. Building sustainable and spatially enabled land administration will help document land use and point out those that are under unsustainable use. This project therefore, will act as a starting point in the step towards establishing a linkage between land management and climate change adaptation and mitigation.</p>
+
+			</div>
+			<div class="sidebar-pane leaflet-control elevation" id="trasee">
+				<p id="initial">Selectează un traseu pentru a obține informații despre el</p>
+			</div>
+			<div class="sidebar-pane" id="saptamanii">
+				<h2>Results</h2>
+				<hr/>
+				<div id="descriere" class="leaflet-control elevation"></div>
+			</div>
+			<div class="sidebar-pane" id="credits">
+				<h2>Contribuții</h2>
+				<hr/>
+				<p>Această hartă există mulțumită:</p>
+				<ul>
+					<li>Excelentei librării JavaScript, <a href="http://leafletjs.com/" target="_blank">Leaflet</a>;</li>
+					<li>Proiectului <a href="http://www.thunderforest.com/" target="_blank">Thunderforest</a> și comunității <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> pentru tile-urile din fundal;</li>
+					<li>Companiei <a href="http://www.esri.com/" target="_blank">ESRI</a> pentru imaginile satelitare;</li>
+					<li>Lui Cornel Pufan, Constantin Cojocaru, Cristi Lazăr și Stelian Gagiu pentru pozele de pe trasee;</li>
+					<li>Prietenei mele pentru ajutorul dat în alegerea cuvintelor potrivite;</li>
+					<li>Tuturor celor care se dau.</li>
+				</ul>
+				<p>Și tu poți contribui la îmbunătățirea hărții, fie cu poze, fie cu idei de noi trasee, sau doar printr-un simplu feedback, pe care îl
+				aștept cu interes pe pagina de contact.</p>
+			</div>
+		</div>>
+  	</div>
+    <div id="map" style="height:100%; width:100%;" class="sidebar-map"></div>
+
+    
+			    <script
+				        src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
+				    </script>
+				    <link 
+				        rel="stylesheet" 
+				        href="http://k4r573n.github.io/leaflet-control-osm-geocoder/Control.OSMGeocoder.css"
+				    />
+				    <script
+				        src="http://k4r573n.github.io/leaflet-control-osm-geocoder/Control.OSMGeocoder.js">
+				    </script>
+				   
+				    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js">
+				    </script>
+				    <script type="text/javascript" src="{% static 'js/L.Control.Sidebar.js' %}"></script>
+				    <script
+				        src="http://makinacorpus.github.io/Leaflet.FileLayer/leaflet.filelayer.js">
+				    </script>
+				    <script
+				        src="http://makinacorpus.github.io/Leaflet.FileLayer/togeojson/togeojson.js">
+				    </script>
+				    <script>
+				        var osmLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>',
+						    thunLink = '<a href="http://thunderforest.com/">Thunderforest</a>';
+
+						var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+						    osmAttrib = '&copy; ' + osmLink + ' Contributors',
+						    landUrl = 'http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png',
+						    thunAttrib = '&copy; '+osmLink+' Contributors & '+thunLink;
+
+						var osmMap = L.tileLayer(osmUrl, {attribution: osmAttrib}),
+						    landMap = L.tileLayer(landUrl, {attribution: thunAttrib});
+						var map = L.map('map',{
+							    layers: [osmMap],
+							    keyboard: true,
+							    boxZoom: true,
+							    doubleClickZoom: true,
+							    scrollWheelZoom: true,
+							    fullscreenControl: true,
+							    fullscreenControlOptions: {
+							        position: 'topleft'
+							    } 
+						    }).setView([-0.418715, 36.950451], 15);
+				        mapLink = 
+				            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+				        L.tileLayer(
+				            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				            attribution: 'Map data &copy; ' + mapLink,
+				            maxZoom: 24,
+				            }).addTo(map);
+				        
+				        var osmGeocoder = new L.Control.OSMGeocoder({
+				        	collapsed: true,
+				            position: 'topright',
+				            text: 'Search Globe'
+				        });
+
+				        map.addControl(osmGeocoder);
+						var style = {color:'red', opacity: 1.0, fillOpacity: 1.0, weight: 2, clickable: false};
+				        L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';
+				        L.Control.fileLayerLoad({
+				            fitBounds: true,
+				            layerOptions: {style: style,
+				                           pointToLayer: function (data, latlng) {
+				                              return L.circleMarker(latlng, {style: style});
+				                           }},
+				        }).addTo(map);
+						
+				
+				var sidebar = L.control.sidebar('sidebar', {
+		            closeButton: true,
+		            position: 'left'
+		        });
+		        map.addControl(sidebar);
+				function featureStyle(feature) {
+					return {
+						weight: 2,
+						opacity: 1,
+						color: 'white',
+						dashArray: '3',
+						fillOpacity: 0.7,
+						fillColor: 'brown'
+					};
+				var highlight = {
+				    'color': 'yellow',
+				    'weight': 2,
+				    'fillOpacity': 0.7,
+				    'fillColor': 'blue'
+				};
+				var parcel;
+								
+				var dataurl = '{% url "data" %}';
+			    $.getJSON(dataurl, function (data) {
+			        parcel = L.geoJson(data,{
+					style: featureStyle,
+					onEachFeature: function(feature, layer) {
+						var defaultStyle = layer.style;
+						layer.on('mouseover',function(e){
+							this.setStyle({
+								weight: 2,
+								opacity: 1,
+								color: 'white',
+								dashArray: '3',
+								fillOpacity: 0.7,
+								fillColor: 'blue'
+
+							 });
+							if (!L.Browser.ie && !L.Browser.opera) {
+								this.bringToFront();
+							}
+						});
+					    layer.on('click', function (e) {
+					    	var popup = "<strong>"+ e.target.feature.properties.registration_section + "<br>" + e.target.feature.properties.legal_area + "</strong>";
+					        layer.bindPopup(popup).openPopup(e.latlng);
+					        map.fitBounds(e.target.getBounds());
+
+					    });
+					    
+					    layer.on('mouseout',function(e){
+					    	this.setStyle({
+					    		weight: 2,
+								opacity: 1,
+								color: 'white',
+								dashArray: '3',
+								fillOpacity: 0.7,
+								fillColor: 'brown'
+					    	});
+					    });
+					
+					}}).addTo(map);
+			    });
+				var baseLayers = {
+					"OSM Mapnik": osmMap,
+					"Landscape": landMap
+				};
+				var overlays = {
+					"Land Parcels": parcel
+				};
+
+				L.control.layers(baseLayers,overlays).addTo(map);
+				L.control.scale({position:"bottomleft"}).addTo(map);
+				
+						//sidebar.setContent('test <b>test</b> test');
+			</script>
+
+
+</body>
+</html>

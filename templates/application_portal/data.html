@@ -1,0 +1,65 @@
+{% extends 'application_portal/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Index{% endblock %}
+
+{% load bootstrap3 %}
+
+{% load bootstrap_toolkit %}
+<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% block content %}
+<div class="container-fluid">  
+        <div class="background">      
+        <div class="hero-unit" style="background-image: url({% static 'img/map-image.png' %})">
+            <h2>Welcome to the LADM website</h2>
+                    <p>This project aims at automating Land processes in Kenya.This website contains various sections that can be accessed from the navigation toolbar on top on this page.</p>
+                    <p>Click on the link of interest to access the resource.</p>
+            <p><a href="http://www.ladmkenya.wordpress.com" class="fa fa-fw fa-gift">Learn more &raquo;</a></p>
+        </div>
+        </div>
+        <div class="span3">
+            <div class="well sidebar-nav"> 
+                <li class="nav-header">Important links</li>
+                <ul class="nav nav-list">
+                    <li><a href="/ladm/search/">View Parcel map</a> </li>
+                    <li><a href="/ladm/apply/">Submit applications</a> </li>
+                </ul>     
+            </div>
+            <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Information Section</li>
+              <li><a href="/ladm/status/">My application Status</a></li>
+              <li><a href="/ladm/contact/">Contact Us</a></li>
+              <li><a href="/ladm/about/">About Us</a></li>
+              <li class="nav-header">Organisation</li>
+              <li><a href="/ladm/services/">Services</a></li>
+              <li><a href="/ladm/datas/">Data</a></li>
+              <li><a href="/ladm/review/">Review</a></li>
+              <li class="nav-header">Other Links</li>
+              <li><a href="https://ladmkenya.wordpress.com/the-team/">The Team</a></li>
+              <li><a href="http://www.dkut.ac.ke/academics/institute/institute-of-geomatics-gis-a-remote-sensing-iggres">IGGReS</a></li>
+            </ul>
+            
+          </div>      
+        </div>
+        <div class="span9">
+                <h4><a class="fa fa-fw fa-gift" href="/ladm/datas/">Data</a></h4>
+                <p>Land administration provides documentation on people to land relationships. It is an instrument for the implementation of land policies — part of the governmental policy on environmental sustainability, economic development, disaster management, social justice and equity and political stability. Land administration provides legal security (protection of all land rights), access to credit (collateral for mortgage or micro credit), spatial planning, land tax and resource management (mining, forestry, and nature).</p>
+                <p>The data in this LADM system is in form of layers (spatial data) and also attribute data.The data is located on a central database that is  being accessed by systems from  the server.</p>
+                <p>The data handled in the system includes;</p>
+                <ul>
+                  <li>Parcel Data</li>
+                  <li>Landuse Data</li>
+                  <li>Landcover Data</li>
+                  <li>Rivers Data</li>
+                  <li>Riperian Data</li>
+                  <li>Basemaps</li>
+                  <li>LandScape Data</li>
+                </ul>
+              <p>The data can be viewed from the <a href="/ladm/search/">Map Section</a></p>
+                <hr>
+        </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,61 @@
+{% extends 'application_portal/base.html' %}
+{% load static %}
+{% block title %}Register{% endblock %}
+{% load bootstrap3 %}
+{% load bootstrap_toolkit %}
+{% block content %}
+<div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="well sidebar-nav"> 
+                <li class="nav-header">Important links</li>
+                <ul class="nav nav-list">
+                    <li><a href="/ladm/search/">View Parcel map</a> </li>
+                    <li><a href="/ladm/apply/">Submit applications</a> </li>
+                </ul>     
+            </div>                  
+            </div>
+            <div class="span9">                           
+                <form class="form-signup" action="/ladm/sign_up/" method="post">
+                {% csrf_token %}
+                    <h2>Create your account</h2>
+                    <div class="fieldWrapper">
+                        <label>First name:</label>
+                        {{ form.first_name }}
+                    </div>    
+                    <br>
+                    <div class="fieldWrapper">
+                        <label>Last name:</label>
+                        {{ form.last_name }}
+                    </div>    
+                    <br>
+                    <div class="fieldWrapper">    
+                        {{ form.email.errors }}            
+                        <label>E-mail:</label>
+                        {{ form.email }}
+                    </div>    
+                    <br>
+                    <div class="fieldWrapper">
+                    {{form.errors.values.0}}                
+                        <label>Username:</label>
+                        {{ form.username }}
+                    </div>
+                    <br>
+                    <div class="fieldWrapper">        
+                        {{form.errors.values.1}}            
+                        <label>Password:</label>                   
+                        {{ form.password1 }}
+                    </div>
+                    <br>
+                    <div class="fieldWrapper">           
+                        <label>Password again:</label>
+                        {{ form.password2 }}
+                    </div>            
+                    <br></br>
+                    <input type="submit" name="submit" class="btn btn-primary" value="Create account">
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'application_portal/base.html' %}
+{% load staticfiles %}
+{% block title %}Log In{% endblock %}
+{% load bootstrap3 %}
+{% load bootstrap_toolkit %}
+{% block content %}
+<div class="container-fluid">
+	    <div class="row-fluid">
+	    	<div class="span3">
+                <div class="well sidebar-nav"> 
+                 <h3>Navigation links</h3>
+                   <ul>
+                        <li>View Maps <a href="/ladm/search/">Here</a> </li>
+
+                    </ul>     
+                </div>              
+            </div>
+		        <div class="span9">
+		        {% if form.errors %}
+				<div id="form-error">
+					<p>The Username and Password didn't match or are incorrect.Please try again:</p>
+					<ul>
+					{% for field in form %}
+					<li>{{ field.errors|striptags }}</li>
+					{% endfor %}
+					</ul>
+				</div>
+				{% endif %}
+				<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+
+				{% csrf_token %}
+				<table>
+				  {{ form.as_p }}
+				</table>
+
+				<input class="btn btn-primary" type="submit" value="login" />
+				<input type="hidden" name="next" value="{{next}}" />
+				</form>
+				<p>Forgot Password? Visit <a href="{% url 'django.contrib.auth.views.password_reset' %}">Here</a> </p> 
+				<p>No account? <a href="/ladm/register/">Sign Up</a> </p>
+			</div>
+		</div>
+</div>
+
+{% endblock %}

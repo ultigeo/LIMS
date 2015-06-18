@@ -1,0 +1,28 @@
+{% extends 'application_portal/base.html' %}
+{% load staticfiles %}
+{% block title %}Applied{% endblock %}
+{% load bootstrap3 %}
+{% load bootstrap_toolkit %}
+{% block content %} 
+<div class="container-fluid">
+	    <div class="row-fluid">
+	    	<div class="span3">
+                <div class="well sidebar-nav"> 
+                 <h3>Navigation links</h3>
+                   <ul>
+                        <li>View Maps <a href="/ladm/search/">Here</a> </li>
+
+                    </ul>     
+                </div>              
+            </div>
+	        <div class="span9">
+				<strong>Application successful!</strong><br>
+		        <strong>Your application will be processed soon!</strong><br>
+		        <br>
+		        <p>Return to <a href="{% url 'index' %}">Homepage</a><br />
+		        <p>Navigate to <a href="{% url 'search' %}">MAP</a><br />
+			</div>
+		</div>
+</div>
+
+{% endblock %}

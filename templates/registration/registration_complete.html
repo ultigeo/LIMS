@@ -1,0 +1,32 @@
+{% extends 'application_portal/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Index{% endblock %}
+
+{% load bootstrap3 %}
+
+{% load bootstrap_toolkit %}
+
+{% block content %}
+
+<div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="well sidebar-nav"> 
+                 <h3>Navigation links</h3>
+                   <ul>
+                        <li>View Maps <a href="/ladm/search/">Here</a> </li>
+
+                    </ul>     
+                </div>              
+            </div>
+            <div class="span9">
+            	<h3>Registration complete.</h3>
+        		<p>Check your mail for the activation link for your account.</p>
+        		<p>NB: The account activation expires in <strong>48</strong> hours.</p>            
+        	</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

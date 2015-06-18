@@ -1,0 +1,17 @@
+{% extends 'application_portal/base.html' %}
+
+
+{% block content %}
+<div style="padding:50px;margin:60px;border:1px solid #D0D0D0 ">
+<h1>Verify Payments</h1>
+<p> The autofilled fields have been auto-calculated by the system as-per-your-application.</p>
+
+<form id="payment_form" method="post" action="{% url 'payment' %}">
+{% csrf_token %}
+{{ form.media }}
+{{ form.as_p }}
+<button type="submit">Send</button>
+</form>
+</div>
+{% endblock %}
+

@@ -1,0 +1,86 @@
+{% load leaflet_tags %}
+{% load i18n %}
+{% load staticfiles %}
+{% leaflet_js %}
+{% leaflet_css %}
+{% load geojson_tags %}
+<html>
+  <head>
+  <title>LADM Maps</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+  <link rel="stylesheet" href="http://makinacorpus.github.io/Leaflet.FileLayer/Font-Awesome/css/font-awesome.min.css"/>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="{% static 'css/L.Control.Sidebar.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/leaflet.label.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/leaflet-search.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/leaflet-zoomhome.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/leaflet-measure.css' %}" />
+  <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/leaflet.fullscreen.css' rel='stylesheet' />
+  <link rel="stylesheet" href="{% static 'css/leaflet.fusesearch.css' %}" />
+  
+  <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+	<script type="text/javascript" src="{% static 'js/leaflet.label.js' %}" ></script>
+	<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/Leaflet.fullscreen.min.js'></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/L.Control.Sidebar.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/fuse.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/leaflet-measure.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/leaflet.fusesearch.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/leaflet.zoomhome.js' %}"></script>
+
+</head>
+ <body>
+  	
+  	<div id="sidebar" class="sidebar">
+  		<ul class="sidebar-tabs" role="tablist">
+			<li class='active'><a href="#home" role="tab"><i class="fa fa-navicon"></i></a></li>
+			<li id="#tools"><a href="#tools" role="tab"><i class="fa fa-search"></i></a></li>
+			<li><a href="#info" role="tab"><i class="fa fa-info-circle"></i></a></li>
+		</ul>
+		<div class="sidebar-content active">
+			<div class="sidebar-pane active" id="home">
+				<h2>Application Navigation</h2><hr>			  
+				<div id="hints">
+					<h2>General</h2>
+					<p>This application is a "service" being offered as part of the LADM project to help in data visualization and querying.The application contains various layers that form the backbone of the main application.This application is open to all who want to do land parcel searches "Location-based search" and also get informaed about the land of interest.</p>
+					<p>Apart from this application, there are also other services that are available to anyone willing to conduct various land operations.See below; 
+					<h3>Registration and Application Procedure</h3>
+					<ul>
+						<li>Visit the <a href="/ladm/apply/">Application</a> page(Login is reuired.If not yet registered, you can register <a href="/ladm/register/">HERE</a>)</li>
+						<li>Register your details.</li>
+						<li>Apply for activities <a href="/ladm/apply/">HERE</a></li>
+					</ul>
+					The submitted applications are received and acted upon in <strong>TWO</strong> working days.
+					</p>
+					<hr>
+					<h2>Controls</h2>
+					<p>The application comes with controls to perform particular activities on the map.All the controls are easily accessible from the interface.</p>
+					<h3>Controls Defined</h3>
+					<ul>
+						<li><strong>Zoom in/out</strong>- respresented by image.Activated by clicking on each when needed.</li>
+						<li><strong>Info Section</strong>-Gives information on a parcel on mouse over.It's a mini-info section.</li>
+						<li><strong>Search</strong>-This is for searching the land parcels.Land parcels can be searched either by <strong>Parcel No, Parcel ID and Use type</strong>.click on the "" icon to activate search bar.Enter either of the details above to search</li>
+					</ul>
+				</div>
+			</div>
+			<div class="sidebar-pane" id="tools">
+				<p id="initial">More tools</p>
+			</div>
+			<div class="sidebar-pane" id="info">
+				<h2>LADM Project</h2>
+				<hr>
+				<p><h2>Overview</h2></p>
+				<p>The land management policy in a country is critical component to climate change adaptation because it helps in establishing and mainstreaming the necessary conditions for policies and actions for climate change mitigation. Currently, Kenya’s land policy lacks linkage with climate change adaptation and mitigation. There is pressing need to incorporate concerns about climate change and natural disaster to land policy and governance in Kenya. </p>
+				<p><h2>Project Objectives</h2></p>
+				<p>DeKut aims to implement a prototype land administration system that draws upon evolving practices in sustainable land management and land governance along with information and communication technology and geographic information systems. Building sustainable and spatially enabled land administration will help document land use and point out those that are under unsustainable use. This project therefore, will act as a starting point in the step towards establishing a linkage between land management and climate change adaptation and mitigation.</p>
+			</div>
+		</div>>
+	</div>
+	<div id="map" class="sidebar-map"></div>
+	<script src= "{% static 'js/map/map.js' %}"></script>
+</body>
+</html>
+

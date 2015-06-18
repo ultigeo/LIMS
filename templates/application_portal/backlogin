@@ -1,0 +1,26 @@
+{% load staticfiles %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login | User</title>
+    </head>
+
+    <body>
+        <h1>Login to NLIMS</h1>
+
+        <form id="login_form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            Username: <input type="text" name="username" value="" size="30" />
+            <br />
+            Password: <input type="password" name="password" value="" size="30" />
+            <br />
+
+            <input type="submit" value="Login" />
+        </form>
+        <br>
+        Have no NLIMS account? Register <a href="/register/">HERE</a>
+    </body>
+</html>
+{% endblock %}
+{% extends "rango/base.html" %}

@@ -1,0 +1,17 @@
+{% extends 'application_portal/base.html' %}
+{% load leaflet_tags %}
+{% block title %}Register{% endblock %}
+{% load bootstrap3 %}
+{% load bootstrap_toolkit %}
+{% block body_block %}
+
+    {% leaflet_js plugins="forms" %}
+    {% leaflet_css plugins="forms" %}
+
+    <h1>Edit {{ object }}</h1>
+    <form method="POST">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit"/>
+    </form>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'application_portal/base.html' %}
+
+{% block title %}About{% endblock %}
+{% load bootstrap3 %}
+{% load bootstrap_toolkit %}
+{% block content %}
+<div class="container-fluid">
+	    <div class="row-fluid">
+	    	<div class="span3">
+                <div class="well sidebar-nav"> 
+                <li class="nav-header">Important links</li>
+                <ul class="nav nav-list">
+                    <li><a href="/ladm/search/">View Parcel map</a> </li>
+                    <li><a href="/ladm/apply/">Submit applications</a> </li>
+                </ul>     
+            </div>                  
+            </div>
+	    	<div class="span9">
+			<div class="post-content">
+				<h2>Objectives</h2>					
+				<p>The overall objective will be the design and development of a pilot land administration and management system for Kenya. This data model behind the implementation will also serve as a reference implementation of LADM in Africa.</p>
+				<h2>Technical Approach</h2>
+				<p>The system will be developed using Service Oriented Architecture principles and will use free and open source software as much as possible</p>
+				<h3>Introduction</h3>
+				<p>
+					The Institute of Geomatics, GIS and Remote Sensing (IGGReS) is one of the institutions that won the RCMRD/SERVIR– EASTERN AND SOUTHERN AFRICA SMALL GRANTS PROGRAM for after submitting a research proposal. The research project is “A Pilot Implementation of The Land Administration Domain Model for Kenya” which is an agreement between Regional Centre for Mapping of Resources for Development (RCMRD and Dedan Kimathi University of Technology.</p>
+
+				<p>	The project runs from October 2014 to June 2015 and the main aim of the research is: Identification of the various data needs to support land administration in Kenya, Identification of various workflows involved in land transactions that can be captured, and identifying those that need to be incorporated in the pilot project. Mapping the information needs to the LADM and STDM employing Cadaster 2014 principles that are applicable within the land registration framework that is in place. Design and implement a pilot implementation of the modelled data and applications. Evaluate and propose scaling up strategy of the implemented pilot system.
+				</p>	
+									
+			</div>
+		</div>    
+	</div>
+ </div>
+{% endblock %}
