@@ -129,10 +129,10 @@ LOGIN_URL = reverse_lazy('login')
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'laskenya@dkut.ac.ke'
-EMAIL_HOST_PASSWORD = 'limskenya'
+EMAIL_HOST_USER = 'samsams@gmail.com'
+EMAIL_HOST_PASSWORD = 'amtheowner'
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'laskenya@dkut.ac.ke'
+DEFAULT_FROM_EMAIL = 'samsams@gmail.com'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
