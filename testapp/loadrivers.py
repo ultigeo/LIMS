@@ -10,7 +10,7 @@ nyeri_county_mapping = {
     'reserve':'STREAM_ORD',
 }
 
-nyericounty_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), '../testapp/data/rivers_buffer.shp'))
+nyericounty_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), '../testapp/data/RIVERS.shp'))
 
 def run(verbose=True):
     lm = LayerMapping(Riperian, nyericounty_shp, nyeri_county_mapping,

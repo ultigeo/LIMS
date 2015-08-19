@@ -54,7 +54,7 @@ function parcelStyle(feature) {
 		//opacity: 1,
 		color: 'brown',
 		dashArray: '3',
-		fillOpacity: 0.6,
+		fillOpacity: 0.3,
 		fillColor: 'brown'
 	};
 }
@@ -64,7 +64,7 @@ function outStyle(feature) {
 		opacity: 1,
 		color: 'brown',
 		dashArray: '3',
-		fillOpacity: 0.7,
+		fillOpacity: 0.3,
 		fillColor: 'brown'
 	};
 }

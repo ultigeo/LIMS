@@ -33,7 +33,7 @@ class ladm_badminunitAdmin(admin.ModelAdmin):
 
 class AdministrationAreaAdmin(LeafletGeoAdmin):
     pass
-    list_display = ('unitid', 'name', 'leng', 'area')
+    list_display = ('unitid', 'name')
     search_fields = ['unitid']
     ordering = ['unitid']
 
@@ -77,12 +77,40 @@ class las_parcelAdmin(LeafletGeoAdmin):
     ordering = ['id']
 
 class las_applicationAdmin (admin.ModelAdmin):
-    list_display = ('app_id','first_name','last_name','email','telephone', 'id_number', 'date_applied','application_type','applicant_type','status')
-    search_fields = [ 'id_number'] 
+    list_display = ('app_id','first_name','last_name','parcel_number','email','telephone', 'id_number', 'date_applied','application_type','applicant_type','status')
+    search_fields = [ 'id_number','parcel_number'] 
     ordering = ['status']
     #readonly_fields = ['dc_comments ','upload_dcreport', 'final_comments']
-    list_filter=('applicant_type','application_type','status',)
-    actions = ['make_verify'] 
+    list_filter=('app_id','applicant_type','application_type','status',)
+           
+
+class developmentAdmin(las_applicationAdmin):
+    readonly_fields = ['first_name','last_name', 'email', 'telephone', 'id_number','title','search','comment']
+    #exclude = ('id', 'user',)
+
+class completedAdmin(las_applicationAdmin):
+    pass
+    readonly_fields = ['first_name','last_name', 'id_number','id_type','application_type','applicant_type','scheme','ppa','receipt','status','registry_comments','final_comments','email', 'telephone', 'id_number','title','search','comment']
+
+class approvedAdmin(las_applicationAdmin):
+    pass
+
+class rejectedAdmin(las_applicationAdmin):
+    pass
+
+class registryAdmin(las_applicationAdmin):
+    pass
+    actions = ['send_EMAIL','make_verify']
+
+
+    def send_EMAIL(self, request, queryset):
+        from django.core.mail import send_mail
+        for i in queryset:
+            if i.email:
+                send_mail('LADM Application', 'Hello,We aknowledge receipt of your application.It will be processed soon.', 'from@example.com',[i.email], fail_silently=False)
+            else:
+                self.message_user(request, "Mail sent successfully") 
+    send_EMAIL.short_description = "Send an email to selected users"
 
     def make_verify(self, request, queryset):
         rows_updated = queryset.update(status='Verified')
@@ -92,18 +120,7 @@ class las_applicationAdmin (admin.ModelAdmin):
             message_bit = "%s applications were" % rows_updated
         self.message_user(request, "%s successfully verified." % message_bit)
     make_verify.short_description = "Verify selected applications"
-    
         
-
-class developmentAdmin(las_applicationAdmin):
-    readonly_fields = ['first_name','last_name', 'email', 'telephone', 'id_number','title','search','comment']
-    #exclude = ('id', 'user',)
-
-class completedAdmin(developmentAdmin):
-    pass
-
-class approvedAdmin(completedAdmin):
-    pass
 
 class transactionAdmin(admin.ModelAdmin):
     pass
@@ -184,7 +201,9 @@ admin.site.register(las_party, las_partyAdmin)
 #admin.site.register(dev_controlunit, dev_controlunitAdmin)
 admin.site.register(development, developmentAdmin)
 admin.site.register(Approved_apps, approvedAdmin)
+admin.site.register(rejected, rejectedAdmin)
 admin.site.register(completed, completedAdmin)
+admin.site.register(registry, registryAdmin)
 admin.site.register(Riperian,RiperianAdmin)
 admin.site.register(Rivers,RiversAdmin)
 admin.site.register(Roads,RoadsAdmin)

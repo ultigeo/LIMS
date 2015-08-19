@@ -90,11 +90,10 @@ party_types = (
     ('Government', 'Government'),
 )
 agent_types=(
-        ('Self', 'Self'),
-        ('Individual', 'Individual'),
-        ('Suveyor','Suveyor'),
-        ('Laywer', 'Laywer'),
-             )
+        ('Owner', 'Owner'),
+        ('Buyer', 'Buyer'),
+        ('Other','Other'),
+)
 
 actual_landuses=(
     ('Agricultural', 'Agricultural'),
@@ -217,10 +216,6 @@ class ladm_badminunit(models.Model):
 class AdministrationArea(models.Model):
     unitid = models.IntegerField(primary_key=True)
     name= models.CharField(max_length=50)
-    leng = models.FloatField()
-    area = models.FloatField()
-    geom = models.PolygonField(srid=21037)
-    objects = models.GeoManager()
     class Meta:
         verbose_name_plural = "AdministrationArea"
         managed = True
@@ -322,6 +317,10 @@ class completedManager(models.Manager):
 class approvedManager(models.Manager):
     def get_queryset(self):
         return super(approvedManager, self).get_queryset().filter(status='Approved')
+
+class rejectedManager(models.Manager):
+    def get_queryset(self):
+        return super(rejectedManager, self).get_queryset().filter(status='Rejected')
    
         
 class las_application(models.Model):
@@ -330,14 +329,18 @@ class las_application(models.Model):
     last_name=models.CharField(max_length=50)
     id_type=models.CharField(max_length=20, null=True, choices=id_types, default=id_types[0][0])
     id_number=models.CharField(max_length=15,null=True)
+    parcel_number=models.CharField(max_length=15,null=True)
     email = models.EmailField(max_length=50, default='user@user.com')
-    telephone = models.IntegerField(help_text="Enter phone number")
+    telephone = models.CharField(max_length=50, help_text="Enter phone number")
     applicant_type=models.CharField(choices=agent_types,max_length=50)    
     date_applied = models.DateTimeField(auto_now_add=True)
+    date_completed = models.DateTimeField(null=True,blank=True)
+    date_approved = models.DateTimeField(null=True,blank=True)
     application_type = models.CharField(max_length=50, choices=application_types)  
     title = models.FileField(upload_to= upload_application, null=True, help_text="Upload copy of Title")
     search = models.FileField(upload_to= upload_application, null=True, help_text="Upload copy of Search document")
     comment = models.FileField(upload_to= upload_application, null=True, help_text="Upload copy of comment form")
+    add_comment = models.FileField(upload_to= upload_application, null=True, help_text="Upload other comment(if available)")
     scheme = models.FileField(upload_to=upload_application, null=True, help_text="Upload copy of Physical Scheme Plan")
     ppa = models.FileField(upload_to= upload_application, null=True, help_text="Upload copy of PPA2")
     receipt = models.FileField(upload_to= upload_application, null=True, help_text="Upload copy of Payment Receipt")
@@ -347,8 +350,8 @@ class las_application(models.Model):
     dc_comments = models.TextField(max_length = 256, help_text="Development control comments Here", null=True)
     upload_dcreport = models.FileField(upload_to= upload_report, null=True)
     final_comments = models.TextField(max_length = 256, help_text="Final comments Here", null=True)
-    user = models.ForeignKey(UserProfile)
-    objects=unverifiedManager()
+    user = models.ForeignKey(User)
+    #objects=unverifiedManager()
 
     def __unicode__(self):
         return u'%s' % (self.first_name)
@@ -365,16 +368,31 @@ class development(las_application):
     approved = verifiedManager()
     class Meta:
         proxy = True
+        verbose_name_plural = "Development_apps"
+
+class registry(las_application):
+    approved = unverifiedManager()
+    class Meta:
+        proxy = True
+        verbose_name_plural = "Registry_apps"
 
 class Approved_apps(las_application):
     approved = approvedManager()
     class Meta:
         proxy = True
+        verbose_name_plural = "Approved Apps"
+
+class rejected(las_application):
+    approved = rejectedManager()
+    class Meta:
+        proxy = True
+        verbose_name_plural = "Rejected_apps"
 
 class completed(las_application):
     approved = completedManager()
     class Meta:
         proxy = True
+        verbose_name_plural = "Completed_Apps"
 
 class dev_controlunit(models.Model):
     las_application=models.OneToOneField(las_application)

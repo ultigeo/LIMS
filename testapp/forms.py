@@ -19,7 +19,7 @@ class UserProfileForm(forms.ModelForm):
 class applicationForm(ModelForm):
     class Meta:
         model = las_application
-        exclude = ['service_fee','application_code','notify_user','user','upload_dcreport','fee_paid','registry_verified','registry_comments','upload_report','dc_verified','dc_comments','status','final_comments','notify_user ']
+        exclude = ['add_comment','application_code','notify_user','user','upload_dcreport','registry_comments','date_completed','date_approved','upload_report','dc_verified','dc_comments','status','final_comments']
 
 
 
