@@ -15,6 +15,5 @@ nyeri_landuse = {
 nyericounty_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), '../testapp/data/landuse.shp'))
 
 def run(verbose=True):
-    lm = LayerMapping(landuse_zoning, nyericounty_shp, nyeri_landuse,
-                      transform=True, encoding='iso-8859-1')
+    lm = LayerMapping(landuse_zoning, nyericounty_shp, nyeri_landuse,transform=True, encoding='iso-8859-1')
     lm.save(strict=True, verbose=verbose)

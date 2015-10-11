@@ -15,18 +15,55 @@
                 </ul>     
             </div>                  
             </div>
-	    	<div class="span9">
-			<div class="post-content">
-				<h2>Objectives</h2>					
-				<p>The overall objective will be the design and development of a pilot land administration and management system for Kenya. This data model behind the implementation will also serve as a reference implementation of LADM in Africa.</p>
-				<h2>Technical Approach</h2>
-				<p>The system will be developed using Service Oriented Architecture principles and will use free and open source software as much as possible</p>
+	    	<div class="span8">
+			<div class="row-fluid">
 				<h3>Introduction</h3>
 				<p>
-					The Institute of Geomatics, GIS and Remote Sensing (IGGReS) is one of the institutions that won the RCMRD/SERVIR– EASTERN AND SOUTHERN AFRICA SMALL GRANTS PROGRAM for after submitting a research proposal. The research project is “A Pilot Implementation of The Land Administration Domain Model for Kenya” which is an agreement between Regional Centre for Mapping of Resources for Development (RCMRD and Dedan Kimathi University of Technology.</p>
+					The <strong>Institute of Geomatics, GIS and Remote Sensing (IGGReS) </strong> is one of the institutions that won the <strong>RCMRD/SERVIR– EASTERN AND SOUTHERN AFRICA SMALL GRANTS PROGRAM </strong>for after submitting a research proposal. The research project is <strong><i> A Pilot Implementation of The Land Administration Domain Model for Kenya</i></strong> which is an agreement between Regional Centre for Mapping of Resources for Development (RCMRD) and Dedan Kimathi University of Technology.</p>
 
 				<p>	The project runs from October 2014 to June 2015 and the main aim of the research is: Identification of the various data needs to support land administration in Kenya, Identification of various workflows involved in land transactions that can be captured, and identifying those that need to be incorporated in the pilot project. Mapping the information needs to the LADM and STDM employing Cadaster 2014 principles that are applicable within the land registration framework that is in place. Design and implement a pilot implementation of the modelled data and applications. Evaluate and propose scaling up strategy of the implemented pilot system.
 				</p>	
+
+				<h3>Project Objectives</h3>					
+				<p>The overall objective will be the design and development of a pilot land administration and management system for Kenya. This data model behind the implementation will also serve as a reference implementation of LADM in Africa.</p>
+				<p>Other specific objectives include;</p>
+			<ul>	
+				<li>Identification of the various data needs to support land administration in Kenya.A number of entities are involved in land administration and management in the country, but the bulk of these have affiliations with the Ministry of Lands, Housing and Urban Development (MoLHUD) and the National Land Commission (NLC). The data needs of these entities will be collected and collated to distil the actual information bits that should be processed by the system.
+				</li>
+				<li>Identification of various workflows involved in land transactions that can be captured, and identifying those that need to be incorporated in the pilot project to achieve their various mandates the entities dealing in land typically have procedures that are used in day to day operations. These will be captured in the form of business workflows that will be documented. Since not all of these can be implemented in the pilot, a number of them will be shortlisted for implementation and the decision on which ones to implement will be based on those that are fairly easy to implement and have maximum impact.
+				</li>
+				<li>Mapping the information needs to the LADM and STDM employing Cadaster 2014 principles that are applicable within the land registration framework that is in place. The mapping will seek to adapt these models to capture information in a form that tightly agrees with data pieces available and in conformity to prevailing laws governing the land sector. 
+				</li>
+				<li> Design and implement a pilot implementation of the modeled data and applications. 
+					The data model schema developed will be mapped to the eventual database that will be used to store and manage both the spatial data and non-spatial data. From the list of workflows that will be implemented, a design of the system will be done. This design will have at its core a modular approach and the formulation of various functions and features following the Service Oriented Architecture (SOA). This will allow the system to be extensible and able to plug into other SOA systems. 
+				</li>
+				<li>Evaluate and propose scaling up strategy of the implemented pilot system.
+				The pilot developed will be evaluated on its suitability to capture and manage the land information. Based on the evaluation, a proposal for the up scaling of the pilot will be presented, showing the phasing of workflow implementation and a pathway for full implementation to other governments and states that may be interested in implementing similar systems in their jurisdictions.
+				</li>
+			</ul>
+				</p>
+
+				<h3>Technical Approach</h3>
+				<p>The system will be developed using Service Oriented Architecture principles and will use free and open source software as much as possible. The open source tools to be used include: Dia (UML Modeling), PostGIS & PostgreSQL (database development and management); QGIS (GIS data preparation, management and cleaning); liclipse (Integrated Development Environment) and geodjango & django (web application development). The implemented system will be written using Python programming language.</p>
+
+				<p>The activities to be undertaken in the project are broken into five main stages with each stage comprising of groups of activities that are paired. These activities map to the specific objectives presented earlier. Data and Information needs and system requirements will be identified through desktop research coupled with questionnaires and interviews with end users of the system. Data modeling will involve the mapping and adapting of the various information pieces to LADM in line with applicable Cadaster 2014 principles. </p>
+				<p>The schema of models developed will be migrated to the PostGIS database. Data collected will be digitized, edited and cleaned using QGIS. Data will be scanned and converted using the resources at the Regional Center for Mapping of Resources for Development (RCMRD). </p>
+				<p>Workflows identified during the needs and requirement identification stage will be ranked with reference to the impact against the complexity of their implementation, from which a number of those favorable will be considered for implementation during the pilot. These will be packaged in the form of services that will be exposed through the web application portal. </p>
+				<p>The proposed pilot solution once developed will be shared with the NLC for purposes of up scaling and rolling out. This will help in gauging the impact of implementation. These end user clients will be invited to give feedback on significance of implementation and propose areas of improvement and recommend features to be added. This will be important in justifying scaling up of the solution and its expansion to cover more features and functions. </p>
+			<h3>The Team</h3>
+			<p>The implementing team of the project is drawn from the <strong> Institute of Geomatics, GIS & Remote Sensing (IGGReS) of the Dedan Kimathi University of Technology (DeKUT) </strong>(see table 1). Four of these members have expertise in spatial data modeling, GIS development and web application development. The students on the project are those who have been identified as already demonstrating competences in the areas that map to the roles allocated.</p>
+			<p> <ul>
+				<li>Dr. Moses Ngigi -<i> Project Leader </i></li>
+				<li>Dr. David Kuria -<i> Data modeling leader </i></li>
+				<li>Prof. Charles Mundia - <i>GIS Modelling Lead </i></li>
+				<li>Ms. Mary Macharia - <i>GIS modeler </i></li>
+				<li>Ms. Carol Gikwa- <i>System Developer </i></li>
+				<li>Mr. Steve Ochieng' - <i>System Developer </i></li>
+				<li>Mr. Samuel Kibui - <i>System Developer </i></li>
+				<li>Mr. Boniface Thaa - <i>Data Preparation & Management </i></li>
+
+			</ul>
+			</p>
 									
 			</div>
 		</div>    

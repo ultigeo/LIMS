@@ -180,7 +180,7 @@ class UserProfile(models.Model):
         return self.user.username
 
     class Meta:
-        verbose_name_plural='Userprofiles'
+        verbose_name_plural='User Profiles'
 
 class Customer(User):
     class Meta:
@@ -207,15 +207,18 @@ class ladm_badminunit(models.Model):
     objects=models.Manager()
     
     def __unicode__(self):
-        return "%s %s" %(self.id, self.type_code)
+        return "%s" %(self.type_code)
     
     class Meta:
         verbose_name_plural = "ADmin Units" 
-        managed = True
         
 class AdministrationArea(models.Model):
     unitid = models.IntegerField(primary_key=True)
     name= models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return "%s" %(self.name)
+
     class Meta:
         verbose_name_plural = "AdministrationArea"
         managed = True
@@ -230,8 +233,12 @@ class RegistrationSection(models.Model):
     area = models.FloatField()
     geom = models.PolygonField(srid=21037)
     objects = models.GeoManager()
+
+    def __unicode__(self):
+        return "%s" %(self.name)
+
     class Meta:
-        verbose_name_plural = "RegistrationSection"
+        verbose_name_plural = "Registration Sections"
         managed = True 
         
   
@@ -243,6 +250,10 @@ class RegistrationBlock (models.Model):
     area = models.FloatField()
     geom = models.PolygonField(srid=21037)
     objects = models.GeoManager()
+
+    def __unicode__(self):
+        return "%s" %(self.type_code)
+
     class Meta:
         verbose_name_plural = "Registration Blocks"
         managed = True 
@@ -262,18 +273,17 @@ class las_parcel(models.Model):
     approval_datetime=models.DateTimeField(null=True,blank=True)
     historic_datetime=models.DateTimeField(null=True,blank=True)
     parent=models.CharField(max_length=15, null=True,default="null",blank=True)
-    area=models.FloatField()
-    length=models.FloatField()
+    area=models.FloatField(null=True)
+    length=models.FloatField(null=True)
     geom=models.MultiPolygonField(srid=21037)
     objects = models.GeoManager()
 
     def __unicode__(self):
-        return "%s %s" %(self.id, self.blockid)
+        return "%s %s" %(self.parcel_no, self.blockname)
     
     class Meta:
         verbose_name_plural = "las_parcel" 
-        managed = True
-        
+               
 
 
 class Restrictions(models.Model):
@@ -284,6 +294,9 @@ class Restrictions(models.Model):
     restriction_holder = models.CharField(max_length=50)
     amount = models.IntegerField()
     objects=models.Manager()
+
+    def __unicode__(self):
+        return "%s" %(self.restriction_type)
 
     class Meta:
         verbose_name_plural = "Restrictions"
@@ -297,6 +310,9 @@ class Landuse_Restriction(models.Model):
     registration_date = models.DateTimeField()
     expiry_date = models.DateTimeField()
     objects=models.Manager()
+
+    def __unicode__(self):
+        return "%s" %(self.landuserestriction_type)
 
     class Meta:
         verbose_name_plural = "Landuse Restriction"
@@ -334,8 +350,8 @@ class las_application(models.Model):
     telephone = models.CharField(max_length=50, help_text="Enter phone number")
     applicant_type=models.CharField(choices=agent_types,max_length=50)    
     date_applied = models.DateTimeField(auto_now_add=True)
-    date_completed = models.DateTimeField(null=True,blank=True)
-    date_approved = models.DateTimeField(null=True,blank=True)
+    date_completed = models.DateField(null=True, blank=True)
+    date_approved = models.DateField(null=True, blank=True)
     application_type = models.CharField(max_length=50, choices=application_types)  
     title = models.FileField(upload_to= upload_application, null=True, help_text="Upload copy of Title")
     search = models.FileField(upload_to= upload_application, null=True, help_text="Upload copy of Search document")
@@ -350,11 +366,11 @@ class las_application(models.Model):
     dc_comments = models.TextField(max_length = 256, help_text="Development control comments Here", null=True)
     upload_dcreport = models.FileField(upload_to= upload_report, null=True)
     final_comments = models.TextField(max_length = 256, help_text="Final comments Here", null=True)
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User)
     #objects=unverifiedManager()
 
     def __unicode__(self):
-        return u'%s' % (self.first_name)
+        return u'%s' % (self.id_number)
     
     class Meta:
         verbose_name_plural = "las_applications" 
@@ -403,7 +419,7 @@ class dev_controlunit(models.Model):
     objects=models.Manager()
     
     class Meta:
-        verbose_name_plural = "Development Section" 
+        verbose_name_plural = "Development Sections" 
         managed = True
         
 class las_party (models.Model):
@@ -437,7 +453,7 @@ class las_party (models.Model):
      #objects = hstore.HStoreManager()
 
      def __unicode__(self):
-        return "%s %s" %(self.id, self.name)
+        return "%s %s" %(self.id_number, self.name)
     
      class Meta:
         verbose_name_plural = "las_party" 
@@ -461,20 +477,20 @@ class transaction(models.Model):
     objects=models.Manager()
     
     def __unicode__(self):
-        return "%s" %(self.id)
+        return "%s %s" %(self.id, self.assignee_id)
 
     class Meta:
-        verbose_name_plural = "transaction" 
+        verbose_name_plural = "Transactions" 
         managed = True
            
                        
-  #### KLADM Extensions#####
+  #### LADM Extensions#####
 
 class landuse_zoning(models.Model):
     id = models.AutoField(primary_key=True)
     zone_code = models.IntegerField()
-    zone_type = models.CharField(max_length=50, null=True, choices= landuse_zoning_types)
-    zone_Description = models.CharField(max_length=50)
+    zone_type = models.CharField(max_length=50, null=True)
+    zone_Description = models.CharField(max_length=50, choices= landuse_zoning_types)
     area=models.FloatField()
     length=models.FloatField()
     geom = models.MultiPolygonField(srid=21037)
@@ -496,6 +512,9 @@ class landcover(models.Model):
     geom = models.MultiPolygonField(srid=21037)
     objects=models.GeoManager()
 
+    def __unicode__(self):
+        return "%s" %(self.landcover_type)
+
     class Meta:
         verbose_name_plural = "landcover" 
         managed = True
@@ -508,6 +527,9 @@ class valuation(models.Model):
     valuationstartdate = models.DateTimeField()
     valuationenddate = models.DateTimeField()
     objects=models.Manager()
+
+    def __unicode__(self):
+        return "%s %s" %(self.valuation_id, self.badminunit)
 
     class Meta:
         verbose_name_plural = "Valuation" 
@@ -522,6 +544,8 @@ class Documents (models.Model):
     datetime_uploaded=models.DateTimeField()
     objects=models.GeoManager()
 
+    def __unicode__(self):
+        return "%s" %(self.document_name)
     
     class Meta:
         verbose_name_plural = "Uploaded Documents" 
@@ -529,7 +553,8 @@ class Documents (models.Model):
         
 class Rivers(models.Model):
     id=models.IntegerField(primary_key=True)
-    name= models.CharField(max_length=255)
+    name= models.CharField(max_length=30)
+    river_type= models.CharField(max_length=30)
     reserve=models.IntegerField( null=True, blank= True)
     geom= models.MultiLineStringField(srid=21037)
     objects=models.Manager()
@@ -543,9 +568,9 @@ class Rivers(models.Model):
 
 class Riperian(models.Model):
     id=models.IntegerField(primary_key=True)
-    name= models.CharField(max_length=255)
-    reserve=models.IntegerField( null=True, blank= True)
-    geom= models.MultiPolygonField(srid=21037)
+    name= models.CharField(max_length=30)
+    reserve=models.CharField(max_length=30)
+    geom = models.MultiPolygonField(srid=21037)
     objects=models.Manager()
 
     def __unicode__(self):

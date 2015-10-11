@@ -17,6 +17,7 @@ from registration.backends.simple.views import *
 
 admin.autodiscover()
 admin.site.site_header = 'LADM Project'
+admin.site.site_title = 'Admin'
 urlpatterns = patterns('',
 
     url(r'^$', 'testapp.views.index', name='index'),
@@ -27,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^review/$', 'testapp.views.review', name='review'),
     url(r'^apply/$','testapp.views.application_portal', name='apply'),
     url(r'^applied/$','testapp.views.applied', name='applied'),
+    url(r'^faq/$','testapp.views.faq', name='faq'),
     #url(r'^dc/$','testapp.views.dc_portal', name='dc'),
     url(r'^status/$','testapp.views.application_status', name='status'),
     url(r'^map/$','testapp.views.maps', name='map'),
@@ -68,8 +70,3 @@ urlpatterns = patterns('',
         'django.contrib.auth.views.password_reset_complete')
 
 )
-if settings.DEBUG404:
-    urlpatterns += patterns('',
-        (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-         {'document_root': os.path.join(os.path.dirname(__file__), 'static')} ),
-    )

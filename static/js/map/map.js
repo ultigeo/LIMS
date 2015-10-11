@@ -32,7 +32,7 @@ var map = L.map('map',{
 	fullscreenControlOptions: {
 		position: 'topleft'
 	} 
-	}).setView([-0.418715, 36.950451], 12);
+	}).setView([-0.454085, 36.950451], 10);
 	mapLink ='<a href="http://openstreetmap.org">OpenStreetMap</a>';
 	L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				attribution: 'Map data &copy; ' + mapLink,
@@ -88,9 +88,90 @@ function riperianStyle(feature) {
 		fillColor: 'yellow'
 	};
 }
+function getColor(d) {
+        return d === 'plantation'  ? "LawnGreen" :
+               d === 'agriculture (dense)'  ? "ForestGreen" :
+               d === 'agriculture (sparse)' ? "Green" :
+               d === 'woodland' ? "DarkOliveGreen " :
+               d === 'town' ? "Peru" :
+               d === 'barren land (R)' ? "IndianRed " :
+               d === 'forest' ? "DarkGreen" :
+                            "green";
+    }
+
+    function style(feature) {
+        return {
+            weight: 1.5,
+            opacity: 1,
+            fillOpacity: 1,
+            radius: 6,
+            fillColor: getColor(feature.properties.zone_type),
+            color: "grey"
+
+        };
+    }
+function doStylenewparcels(feature) {
+			switch (feature.properties.blockcode) {
+				case 27:
+					return {
+						weight: '1.3',
+						fillColor: '#ca0020',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 466:
+					return {
+						weight: '1.3',
+						fillColor: '#eb846e',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 491:
+					return {
+						weight: '1.3',
+						fillColor: '#f5d6c8',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 493:
+					return {
+						weight: '1.3',
+						fillColor: '#cee3ed',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+				case 495:
+					return {
+						weight: '1.3',
+						fillColor: '#75b4d4',
+						color: '#000000',
+						weight: '1',
+						dashArray: '',
+						opacity: '1.0',
+						fillOpacity: '1.0',
+					};
+					break;
+			}
+		}
 function getstyle(feature) {
 	switch (feature.properties.zone_type){
-		case 'Agricultural':
+		case 'plantation':
 			return {
 				weight: 2,
 				opacity: 1,
@@ -99,7 +180,7 @@ function getstyle(feature) {
 				fillOpacity: 0.7
 			};
 			break;
-		case 'Residential':
+		case 'agriculture (dense)':
 			return {
 				weight: 2,
 				opacity: 1,
@@ -108,7 +189,7 @@ function getstyle(feature) {
 				fillOpacity: 0.7
 			};
 			break;
-		case 'Commercial':
+		case 'agriculture (sparse)':
 			return {
 				weight: 2,
 				opacity: 1,
@@ -117,7 +198,7 @@ function getstyle(feature) {
 				fillOpacity: 0.7
 			};
 			break;
-		case 'Reserve':
+		case 'forest':
 			return {
 				weight: 2,
 				opacity: 1,
@@ -126,7 +207,25 @@ function getstyle(feature) {
 				fillOpacity: 0.7
 			};
 			break;
-		case 'Public':
+		case 'woodland':
+			return {
+				weight: 2,
+				opacity: 1,
+				color: 'yellow',
+				dashArray: '3',
+				fillOpacity: 0.7
+			};
+			break;
+		case 'barren land (R)':
+			return {
+				weight: 2,
+				opacity: 1,
+				color: 'yellow',
+				dashArray: '3',
+				fillOpacity: 0.7
+			};
+			break;
+		case 'town':
 			return {
 				weight: 2,
 				opacity: 1,
@@ -263,7 +362,7 @@ var riperianurl ='/ladm/riperian/';
 var landcoverurl='/ladm/landcover/';
 
 $.getJSON(dataurl, function (data) {
-    parcel.addData(data).setStyle(parcelStyle);
+    parcel.addData(data).setStyle(doStylenewparcels);
     //parcel.bindLabel(feature.properties['registration_section'], { 'noHide': true });
     parcel.eachLayer(function (layer) {    	
     layer.bindLabel(layer.feature.properties['sectcode']);
@@ -271,27 +370,13 @@ $.getJSON(dataurl, function (data) {
 	layer.on('click', function (e) {
 		var popup = "<strong>" + "Id : " + e.target.feature.properties.id + "<br>" + "Area Code : " + e.target.feature.properties.areacode + "<br>" + "Section Code : " + e.target.feature.properties.sectcode + "<br>" + "Parcel No : " + e.target.feature.properties.parcel_no +  "</strong>";
 		layer.bindPopup(popup).openPopup(e.latlng);
-		map.fitBounds(e.target.getBounds());
 		if (!L.Browser.ie && !L.Browser.opera) {
 				layer.bringToFront();
 		}
 
 	});
 	layer.on('mouseover',function(e){
-		var layer = e.target;
-
-			layer.setStyle({
-				weight: 5,
-				color: '#666',
-				dashArray: '',
-				fillOpacity: 0.7
-			});
-
-			if (!L.Browser.ie && !L.Browser.opera) {
-				layer.bringToFront();
-			}
-
-			info.update(layer.feature.properties);
+		info.update(layer.feature.properties);
   	
 	});			    
 	
@@ -313,12 +398,11 @@ $.getJSON(riverurl, function (data) {
     //parcel.bindLabel(feature.properties['registration_section'], { 'noHide': true });
 });
 $.getJSON(landuseurl, function (data) {
-    landuse.addData(data).setStyle(getstyle);
+    landuse.addData(data).setStyle(style);
     landuse.eachLayer(function (layer) { 
     layer.on('click', function (e) {
 		var popup = "<strong>" + "Id : " + e.target.feature.properties.id + "<br>" + "Landuse : " + e.target.feature.properties.zone_type + "<br>" + "Zone Code : " + e.target.feature.properties.zone_code +  "</strong>";
 		layer.bindPopup(popup).openPopup(e.latlng);
-		map.fitBounds(e.target.getBounds());
 
 	});	
 	});	
@@ -330,7 +414,6 @@ $.getJSON(landcoverurl, function (data) {
     layer.on('click', function (e) {
 		var popup = "<strong>" + "Id : " + e.target.feature.properties.id + "<br>" + "Landcover Type: " + e.target.feature.properties.landcover_type + "<br>" + "Landcover Code : " + e.target.feature.properties.landcover_code +  "</strong>";
 		layer.bindPopup(popup).openPopup(e.latlng);
-		map.fitBounds(e.target.getBounds());
 
 	});	
 	});	
@@ -340,32 +423,44 @@ $.getJSON(riperianurl, function (data) {
     riperian.addData(data).setStyle(riperianStyle);
     //parcel.bindLabel(feature.properties['registration_section'], { 'noHide': true });
 });
-map.addLayer(parcel);
+map.addLayer(landuse);
 //map.addLayer(landcover);
 //map.addLayer(roads);
-var legend = L.control({position:'bottomright'});
-legend.onAdd = function (map) {
-	var div = L.DomUtil.create('div','info legend');
-	div.innerHTML = "<h3>Legend</h3><table></table>";
-	return div;
-}
-legend.addTo(map);
+
+var legend = L.control({position: 'bottomright'});
+    legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend');
+    labels = ['<strong>Categories</strong>'],
+    categories = ['plantation','agriculture (dense)','agriculture (sparse)','woodland','town','barren land (R)','forest'];
+
+    for (var i = 0; i < categories.length; i++) {
+
+            div.innerHTML += 
+            labels.push(
+                '<i class="rectangle" style="background:' + getColor(categories[i]) + '"></i> ' +
+            (categories[i] ? categories[i] : '+'));
+
+        }
+        div.innerHTML = labels.join('<br>');
+    return div;
+    };
+    legend.addTo(map);
 
 var baseLayers = {
 	"OSM Mapnik": osmMap,
-	"Landscape": landMap,
-	"Aerial":aerial
+	"Landscape": landMap
 };
 var overlays = {
 	"Land Parcels": parcel,
 	"Rivers":rivers,
-	"Riperian Reserve":riperian,
+	"Riparian Reserve":riperian,
 	"Landuse Zoning":landuse,
-	"Land Cover":landcover
+	"LandCover 2015":landcover
 };
 
 
-L.control.layers(baseLayers,overlays,{collapsed:false}).addTo(map);
+L.control.layers(baseLayers,overlays,{collapsed:true}).addTo(map);
 info.addTo(map);
 L.control.scale({position:"bottomleft"}).addTo(map);
 
@@ -373,9 +468,9 @@ L.control.scale({position:"bottomleft"}).addTo(map);
 var options = {
         position: 'topright',
         title: 'Parcel Search',
-        placeholder: 'Parcen No,Block, Sect Code',
+        placeholder: 'Enter parcel No',
         maxResultLength: 15,
-        threshold: 0.5,
+        threshold: 0.0,
         showInvisibleFeatures: true,
         showResultFct: function(feature, container) {
             props = feature.properties;
@@ -394,7 +489,7 @@ var options = {
     // Load the data
     jQuery.getJSON(dataurl, function(data) {
         displayFeatures(data.features, parcel);
-        var props = ['parcel_no','blockid', 'sectcode'];
+        var props = ['parcel_no'];
         fuseSearchCtrl.indexFeatures(data.features, props);
         //map.fitBounds(e.target.getBounds()); 
         //parcel.feature = parcel;   

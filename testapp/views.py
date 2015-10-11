@@ -35,6 +35,9 @@ def about(request):
 def review(request):
     return render(request, 'application_portal/review.html')
 
+def faq(request):
+    return render(request, 'application_portal/faq.html')
+
 def datas(request):
     return render(request, 'application_portal/data.html')
 
@@ -51,10 +54,23 @@ def applied(request):
 def register_success(request):
     return render(request, 'registration/registration_complete.html')
 
+def handler404(request):
+    response = render_to_response('application_portal/404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler500(request):
+    response = render_to_response('application_portal/500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
+
 @login_required
 def application_status(request):
     user = request.user.get_full_name()
-    applications = development.objects.filter(user__user=request.user)
+    applications = las_application.objects.filter(user=request.user)
     #developments = development.objects.filter(user__user=request.user)
     #html = []
     #for k in applications:
@@ -73,6 +89,10 @@ def mapping(request):
     data = serializers.serialize('json', result)
     return Response(data, status=status.HTTP_200_OK, content_type='application/json')
     #return render_to_response("application_portal/mapfinal.html", locals(), context_instance=RequestContext(request))
+
+def geojsonRenderer(request):
+   features = las_parcel.objects.all().geojson()
+   render_to_response("my_template.html", {'geojson':features}, context_instance=RequestContext(request))
 
 @api_view(['GET'])
 def mapping_filter(request):
@@ -105,7 +125,9 @@ def application_portal(request):
     if request.method == 'POST':
         form = applicationForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save(commit=True)
+            new_form = form.save(commit=False)
+            new_form.user = request.user
+            new_form.save()
             #return payment_portal(request)
             return HttpResponseRedirect(reverse("applied"))
         else:
@@ -169,7 +191,7 @@ def register_user(request):
 
             # Send email with activation key
             email_subject = 'Account confirmation'
-            email_body = "Hey %s, thanks for signing up. To activate your account, click this link within 48hours http://127.0.0.1:8000/ladm/confirm/%s" % (username, activation_key)
+            email_body = "Hey %s, thanks for signing up. To activate your account, click this link within 48hours https://63f3cc95.ngrok.com/ladm/confirm/%s" % (username, activation_key)
 
             send_mail(email_subject, email_body, 'myemail@example.com',
                 [email], fail_silently=False)
@@ -217,10 +239,10 @@ def user_login(request):
                     return HttpResponseRedirect('/ladm/')
                 
             else:
+                print "Invalid login details: {0}, {1}".format(username, password)
                 return HttpResponseRedirect(reverse("login"))
         else:
             
-            print "Invalid login details: {0}, {1}".format(username, password)
             return render_to_response('application_portal/login.html', args, context_instance=RequestContext(request))
 
     
@@ -261,7 +283,7 @@ def contact(request):
                 request.POST['subject'],
                 request.POST['message'],
                 request.POST.get('email', 'noreply@ke_ladm.com'),
-                ['laskenya@dkut.ac.ke'], #email address where message is sent.
+                ['swanjohi9@gmail.com'], #email address where message is sent.
             )
             return HttpResponseRedirect('/ladm/thanks/')
     return render(request, 'application_portal/contact.html',

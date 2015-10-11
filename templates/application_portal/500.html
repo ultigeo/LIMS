@@ -1,0 +1,25 @@
+{% extends 'application_portal/base.html' %}
+{% load staticfiles %}
+{% block title %}500{% endblock %}
+{% load bootstrap3 %}
+{% load bootstrap_toolkit %}
+{% block content %} 
+<div class="container-fluid">
+	    <div class="row-fluid">
+	    	<div class="span3">
+                <div class="well sidebar-nav"> 
+                 <h3>Navigation links</h3>
+                   <ul>
+                        <li>View Maps <a href="/ladm/search/">Here</a> </li>
+
+                    </ul>     
+                </div>              
+            </div>
+	        <div class="span9">
+				<strong>Server Error!</strong><br>
+		        <p>Well, this is embarassing.The server returned an error when trying to access the file you loaded earlier.Please try again after some time or visit <a href="{% url 'index' %}">homepage</a></p><br>
+			</div>
+		</div>
+</div>
+
+{% endblock %}

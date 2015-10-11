@@ -1,0 +1,26 @@
+{% extends 'application_portal/base.html' %}
+{% load staticfiles %}
+{% block title %}404{% endblock %}
+{% load bootstrap3 %}
+{% load bootstrap_toolkit %}
+{% block content %} 
+<div class="container-fluid">
+	    <div class="row-fluid">
+	    	<div class="span3">
+                <div class="well sidebar-nav"> 
+                 <h3>Navigation links</h3>
+                   <ul>
+                        <li>View Maps <a href="/ladm/search/">Here</a> </li>
+
+                    </ul>     
+                </div>              
+            </div>
+	        <div class="span9">
+				<strong>NOT FOUND!</strong><br>
+		        <p>Well, this is embarassing.The file your tried to load seems not to be in the server.Please make sure you typed the file name correctly or visit <a href="{% url 'index' %}">homepage</a></p><br>
+		        
+			</div>
+		</div>
+</div>
+
+{% endblock %}

@@ -18,6 +18,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ladm/', include('testapp.urls')),
+    url(r'^grappelli/', include('grappelli.urls')),
    
 
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -122,6 +122,7 @@ class Migration(migrations.Migration):
                 ('last_name', models.CharField(max_length=50)),
                 ('id_type', models.CharField(default='National ID', max_length=20, null=True, choices=[('National ID', 'National ID'), ('Passport', 'Passport'), ('Company Registration Number', 'Company Registration Number')])),
                 ('id_number', models.CharField(max_length=15, null=True)),
+                ('parcel_number', models.CharField(max_length=15, null=True)),
                 ('email', models.EmailField(default='user@user.com', max_length=50)),
                 ('telephone', models.CharField(help_text='Enter phone number', max_length=50)),
                 ('applicant_type', models.CharField(max_length=50, choices=[('Owner', 'Owner'), ('Buyer', 'Buyer'), ('Other', 'Other')])),
@@ -304,7 +305,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('activation_key', models.CharField(max_length=40, blank=True)),
-                ('key_expires', models.DateTimeField(default=datetime.date(2015, 6, 30))),
+                ('key_expires', models.DateTimeField(default=datetime.date(2015, 7, 9))),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
             options={

@@ -20,22 +20,29 @@
     {% endblock %}
 </head>
 <body>
-	<div class="container" align="center">
+	<div class="container">
+		{% if errors %}
+                    <ul>
+                        {% for error in errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+        {% endif %}
 		<form class="form-signin" role="form" method="post" action="/ladm/accounts/login/" align="center">
-				{% csrf_token %}
-
-		        {% if bad_details %}
-		        <p><strong>Your username and/or password were incorrect!</strong></p>
-		        {% elif disabled_account %}
-		        <p><strong>Your Rango account is currently disabled; we can't log you in!</strong></p>
-		        {% endif %}
+			{% csrf_token %}
 				<h2 class="form-signin-heading">Please sign in</h2><br>
 				<input class="form-control" placeholder="Username" id="id_username" maxlength="254" name="username" type="text" required autofocus=""/><br> 
 				<input type="password" class="form-control" placeholder="Password" id="id_password" name="password" type="password" required /><br>
 				<button class="btn btn-large btn-primary" type="submit" value="Submit" />Sign in</button>
-				        </form>
+				<hr>
+				<br>
 				<p>Forgot Password? Visit <a href="{% url 'django.contrib.auth.views.password_reset' %}">Here</a> </p> 
 				<p>No account? <a href="/ladm/register/">Sign Up</a> </p>
+				</form>
+				{% if serverDetails.errors %}
+		<p>Your username and password didn't match. Please try again.</p>
+		{% endif %}
+						
 	</div>
 	<br>
 	<br>

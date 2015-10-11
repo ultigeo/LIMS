@@ -23,11 +23,9 @@ SECRET_KEY = '8*ri^t34xjp=cu@!=%f16$f@w_=9tgkxrw_y94^zkq&+&b!&wh'
 from django.core.urlresolvers import reverse_lazy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-DEBUG404 = True
 
-TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost']
 #WSGI_APPLICATION = 'testapp.wsgi.application'
 
 
@@ -70,6 +68,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'testfinal.urls'
 
 WSGI_APPLICATION = 'testfinal.wsgi.application'
+GRAPPELLI_ADMIN_TITLE = 'LADM - The lands Solution '
 
 
 # Database
@@ -129,10 +128,10 @@ LOGIN_URL = reverse_lazy('login')
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'samsams@gmail.com'
-EMAIL_HOST_PASSWORD = 'amtheowner'
+EMAIL_HOST_USER = 'laskenya@dkut.ac.ke'
+EMAIL_HOST_PASSWORD = 'limskenya'
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'samsams@gmail.com'
+DEFAULT_FROM_EMAIL = 'laskenya@dkut.ac.ke'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

@@ -12,7 +12,7 @@
     <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
     <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
-    <title>LADM - {% block title %}The Kenyan Areana!{% endblock %}</title>
+    <title>LADM - {% block title %}The Kenyan land solution!{% endblock %}</title>
     {% block extra_head %}
     {% endblock %}
   </head>
@@ -27,7 +27,7 @@
 	               <span class="icon-bar"></span>
 	               <span class="icon-bar"></span>
 	           </button>
-	           <a class="brand" href="/ladm/">Ladm Kenya</a>
+	           <a class="brand" href="/ladm/"><strong>Ladm Kenya</strong></a>
 
 	           <div class="nav-collapse collapse">
 	               <ul class="nav pull-right">
@@ -36,18 +36,20 @@
 	                    <li><a href="/ladm/accounts/password_change/">Change Password</a></li>
 	                    <li><a href="/ladm/accounts/logout/">Logout</a></li> 
 	                   {% else %}
-	                    <li><a href="/ladm/search/">search</a></li>
+	                    <li><a href="/ladm/search/">Map</a></li>
         				<li><a href="/ladm/accounts/login/">Login</a></li>
         				<li><a href="/ladm/register/">Register</a></li>
+        				<li><a href="/admin/">Admin</a></li>
 	                   {% endif %}
 	               </ul>
 	               <ul class="nav">
 	                   {% if user.is_authenticated %}
-	                    <li><a href="/ladm/search/">Search</a></li>
+	                    <li><a href="/ladm/search/">Map</a></li>
 	                    <li><a href="/ladm/apply/">Apply</a></li>
 	                    {% endif %}
 	                   <li><a href="/ladm/about/">About</a></li>
 	                   <li><a href="/ladm/contact/">Contact</a></li>
+	                   <li><a href="/ladm/faq/">FAQ</a></li>
 	                   
 	               </ul>
 	           </div>

@@ -22,7 +22,7 @@ class CustomerAdmin(StaffAdmin):
 
     def queryset(self, request):
         qs = super(UserAdmin, self).queryset(request)
-        qs = qs.exclude(Q(is_staff=True) | Q(is_superuser=True))
+        qs = qs.filter(Q(is_staff=False) | Q(is_superuser=False))
         return qs
 
 class ladm_badminunitAdmin(admin.ModelAdmin):
@@ -81,25 +81,73 @@ class las_applicationAdmin (admin.ModelAdmin):
     search_fields = [ 'id_number','parcel_number'] 
     ordering = ['status']
     #readonly_fields = ['dc_comments ','upload_dcreport', 'final_comments']
-    list_filter=('app_id','applicant_type','application_type','status',)
+    list_filter=('date_applied','date_approved')
+
+    def save_model(self, request, obj, form, change):
+        if getattr(obj, 'user', None) is None:
+            obj.user = request.user
+        obj.save()
            
 
 class developmentAdmin(las_applicationAdmin):
-    readonly_fields = ['first_name','last_name', 'email', 'telephone', 'id_number','title','search','comment']
     #exclude = ('id', 'user',)
+    readonly_fields = ['parcel_number','first_name','last_name', 'id_number','user','id_type','application_type','applicant_type','status','registry_comments','final_comments','email', 'telephone', 'id_number','planning','scheme','ppa','receipt','title','search','comment','date_completed']
+    actions = ['approve','reject']
+    def approve(self, request, queryset):
+        rows_updated = queryset.update(status='Approved')
+        if rows_updated == 1:
+            message_bit = "1 application was"
+        else:
+            message_bit = "%s applications were" % rows_updated
+        self.message_user(request, "%s successfully approved." % message_bit)
+    approve.short_description = "Approve selected applications"
+
+    def reject(self, request, queryset):
+        rows_updated = queryset.update(status='Rejected')
+        if rows_updated == 1:
+            message_bit = "1 application was"
+        else:
+            message_bit = "%s applications were" % rows_updated
+        self.message_user(request, "%s successfully marked as rejected." % message_bit)
+    reject.short_description = "Reject selected applications"
+
 
 class completedAdmin(las_applicationAdmin):
     pass
-    readonly_fields = ['first_name','last_name', 'id_number','id_type','application_type','applicant_type','scheme','ppa','receipt','status','registry_comments','final_comments','email', 'telephone', 'id_number','title','search','comment']
+    readonly_fields = ['first_name','last_name', 'id_number','user','id_type','application_type','applicant_type','status','registry_comments','dc_comments','upload_dcreport','parcel_number','date_approved','date_completed','add_comment','final_comments','email', 'telephone', 'id_number','planning','scheme','ppa','receipt','title','search','comment']
+    actions = ['close']
+    def close(self, request, queryset):
+        rows_updated = queryset.update(status='Closed')
+        if rows_updated == 1:
+            message_bit = "1 application was"
+        else:
+            message_bit = "%s applications were" % rows_updated
+        self.message_user(request, "%s successfully marked as closed." % message_bit)
+    close.short_description = "Mark applications as closed"
 
 class approvedAdmin(las_applicationAdmin):
     pass
+    readonly_fields = ['first_name','last_name', 'id_number','user','id_type','application_type','applicant_type','status','dc_comments','upload_dcreport','parcel_number','date_approved','add_comment','email','registry_comments','telephone', 'id_number','planning','scheme','ppa','receipt','title','search','comment']
+
+    actions = ['complete']
+    def complete(self, request, queryset):
+        rows_updated = queryset.update(status='Completed')
+        if rows_updated == 1:
+            message_bit = "1 application was"
+        else:
+            message_bit = "%s applications were" % rows_updated
+        self.message_user(request, "%s successfully marked as complete." % message_bit)
+    complete.short_description = "Mark applications as complete"
 
 class rejectedAdmin(las_applicationAdmin):
     pass
+    readonly_fields = ['first_name','last_name', 'id_number','user','id_type','application_type','applicant_type','status','registry_comments','dc_comments','upload_dcreport','parcel_number','date_approved','date_completed','add_comment','final_comments','email', 'telephone', 'id_number','planning','scheme','ppa','receipt','title','search','comment']
+
 
 class registryAdmin(las_applicationAdmin):
     pass
+    readonly_fields = ['first_name','last_name', 'id_number','user','id_type','application_type','applicant_type','status','dc_comments','upload_dcreport','parcel_number','date_approved','date_completed','add_comment','final_comments','email', 'telephone', 'id_number','planning','scheme','ppa','receipt','title','search','comment']
+
     actions = ['send_EMAIL','make_verify']
 
 
@@ -182,6 +230,9 @@ class RestrictionsAdmin(admin.ModelAdmin):
 class UserAdmin(admin.ModelAdmin):
     pass
 
+class devunitAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.unregister(User)
 admin.site.register(Staff, StaffAdmin)
 admin.site.register(Customer, CustomerAdmin)
@@ -209,3 +260,4 @@ admin.site.register(Rivers,RiversAdmin)
 admin.site.register(Roads,RoadsAdmin)
 admin.site.register(UserProfile,UserAdmin)
 admin.site.register(landcover,landcoverAdmin)
+admin.site.register(dev_controlunit,devunitAdmin)
