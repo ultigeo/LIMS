@@ -25,7 +25,7 @@ django-stored-messages==1.1.0
 docutils==0.12
 duplicity==0.6.23
 gyp==0.1
-html5lib==0.999
+html5lib==0.99999999
 httplib2==0.9
 idna==0.9
 lockfile==0.8
